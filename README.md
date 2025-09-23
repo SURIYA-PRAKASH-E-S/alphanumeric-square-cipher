@@ -26,8 +26,8 @@ A web-based interactive tool to **encrypt and decrypt messages** using the **6x6
    - If letters repeat in a pair or the length is odd, insert `X` as filler.
 
 3. **Encryption / Decryption Rules:**  
-   - **Same Row:** Shift right (encrypt) or left (decrypt) by 2 positions.  
-   - **Same Column:** Shift down (encrypt) or up (decrypt) by 2 positions.  
+   - **Same Row:** Shift left (encrypt) or right (decrypt) by 2 positions.  
+   - **Same Column:** Shift up (encrypt) or down (decrypt) by 2 positions.  
    - **Rectangle:** Swap the columns of the two letters.
 
 4. **Combine Results:**  
@@ -37,7 +37,7 @@ A web-based interactive tool to **encrypt and decrypt messages** using the **6x6
 
 ## Demo
 
-- [Live Demo Link](#) *(Add your deployment link here)*
+- [[Live Demo Link](https://cryptal.netlify.app/)](#)
 
 ---
 
@@ -46,5 +46,7 @@ A web-based interactive tool to **encrypt and decrypt messages** using the **6x6
 1. **Clone the repository:**
 
 ```bash
-git clone https://github.com/yourusername/alphanumeric-square-cipher.git
+git clone https://github.com/SURIYA-PRAKASH-E-S/alphanumeric-square-cipher.git
 cd alphanumeric-square-cipher
+```
+---
