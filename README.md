@@ -1,70 +1,50 @@
-# Getting Started with Create React App
+# Alphanumeric Square Cipher
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A web-based interactive tool to **encrypt and decrypt messages** using the **6x6 Alphanumeric Twisted Playfair Cipher**. This cipher supports both letters (A-Z) and digits (0-9), making it suitable for alphanumeric messages.
 
-## Available Scripts
+---
 
-In the project directory, you can run:
+## Features
 
-### `npm start`
+- **Encrypt / Decrypt** text with a secret key.
+- **Interactive 6x6 grid** showing the cipher table.
+- **Step-by-step visualization** of digraph processing.
+- Automatically handles repeated letters and odd-length text using filler `X`.
+- Fully **responsive design** using Bootstrap.
+- Highlights letters being processed in real-time.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+---
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## How It Works
 
-### `npm test`
+1. **Generate Grid:**  
+   - Create a 6x6 grid with letters A-Z and digits 0-9.  
+   - Start with the secret key (no duplicates), then fill remaining characters.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+2. **Prepare Text:**  
+   - Divide plaintext into digraphs (pairs of letters).  
+   - If letters repeat in a pair or the length is odd, insert `X` as filler.
 
-### `npm run build`
+3. **Encryption / Decryption Rules:**  
+   - **Same Row:** Shift right (encrypt) or left (decrypt) by 2 positions.  
+   - **Same Column:** Shift down (encrypt) or up (decrypt) by 2 positions.  
+   - **Rectangle:** Swap the columns of the two letters.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+4. **Combine Results:**  
+   - Combine processed digraphs to produce the final encrypted or decrypted text.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+---
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Demo
 
-### `npm run eject`
+- [Live Demo Link](#) *(Add your deployment link here)*
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+---
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## Installation
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+1. **Clone the repository:**
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+```bash
+git clone https://github.com/yourusername/alphanumeric-square-cipher.git
+cd alphanumeric-square-cipher
