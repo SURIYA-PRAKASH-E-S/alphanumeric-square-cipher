@@ -207,7 +207,7 @@ const App = () => {
             <h5 className="card-title">How It Works</h5>
             <p className="card-text">
               1. Create a 6x6 grid containing the letters A-Z and digits 0-9. Start by filling the grid with the secret key (unique letters only), then fill remaining characters using the 1-number → 2-letters alternating pattern.<br />
-              2. Divide the plaintext into digraphs (pairs of characters). If two characters are identical, insert an 'X' between them; if odd-length, append 'X'.<br />
+              2. Divide the plaintext into digrams (pairs of characters). If two characters are identical, insert an 'X' between them; if odd-length, append 'X'.<br />
               3. Apply encryption/decryption rules:
               <ul>
                 <li><strong>Same row:</strong> shift left (encrypt) or right (decrypt) by 2 positions.</li>
