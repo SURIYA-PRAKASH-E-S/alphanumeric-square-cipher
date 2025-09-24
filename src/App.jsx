@@ -12,17 +12,14 @@ const App = () => {
   const [processing, setProcessing] = useState(false);
 
   // ---------- FIXED: Generate grid according to spec ----------
-  // Step 1: insert unique letters from secret key (uppercase, alphabetic only)
-  // Step 2: fill remaining slots with the alternating pattern:
-  //         1 number (0..9, skipping used) -> 2 letters (A..Z, skipping used) -> repeat
   const generateGrid = (key) => {
     const used = new Set();
     const grid = Array.from({ length: 6 }, () => Array(6).fill(''));
     let row = 0, col = 0;
 
-    // Step 1: Insert unique alphabetic characters from key
+    // Step 1: Insert unique alphanumeric characters from key
     for (const ch of key.toUpperCase()) {
-      if (/[A-Z]/.test(ch) && !used.has(ch)) {
+      if (/[A-Z0-9]/.test(ch) && !used.has(ch)) {
         grid[row][col] = ch;
         used.add(ch);
         col++;
@@ -33,36 +30,32 @@ const App = () => {
 
     // Step 2: Fill remaining positions using pattern: 1 number -> 2 letters -> repeat
     let nextNum = 0;              // next digit to try (0..9)
-    let nextLetterCode = 65;      // 'A' char code
-    let state = 'num';            // 'num' -> place one digit, 'l1' -> first letter, 'l2' -> second letter
+    let nextLetterCode = 65;      // 'A'
+    let state = 'num';            // start with number
 
     while (row < 6) {
       if (state === 'num') {
-        // Find next available single-digit number (0..9) not used
+        // Find next unused digit
         let foundNum = null;
         for (let d = nextNum; d <= 9; d++) {
           const s = String(d);
           if (!used.has(s)) {
             foundNum = s;
-            nextNum = d + 1; // next search starts after the used digit
+            nextNum = d + 1;
             break;
           }
         }
 
-        if (foundNum === null) {
-          // No digits left (all 0..9 used) -> switch to letters
-          state = 'l1';
-          continue;
+        if (foundNum) {
+          grid[row][col] = foundNum;
+          used.add(foundNum);
+          col++; if (col === 6) { col = 0; row++; if (row === 6) break; }
         }
-
-        grid[row][col] = foundNum;
-        used.add(foundNum);
-        col++; if (col === 6) { col = 0; row++; if (row === 6) break; }
         state = 'l1';
       } else {
-        // Place letter (either first or second)
+        // Place a letter
         let foundLetter = null;
-        for (let c = nextLetterCode; c <= 90; c++) { // 90 = 'Z'
+        for (let c = nextLetterCode; c <= 90; c++) { // 'A'..'Z'
           const s = String.fromCharCode(c);
           if (!used.has(s)) {
             foundLetter = s;
@@ -71,17 +64,14 @@ const App = () => {
           }
         }
 
-        if (foundLetter === null) {
-          // No letters left -> switch to digits
-          state = 'num';
-          continue;
+        if (foundLetter) {
+          grid[row][col] = foundLetter;
+          used.add(foundLetter);
+          col++; if (col === 6) { col = 0; row++; if (row === 6) break; }
         }
 
-        grid[row][col] = foundLetter;
-        used.add(foundLetter);
-        col++; if (col === 6) { col = 0; row++; if (row === 6) break; }
-
-        if (state === 'l1') state = 'l2'; else state = 'num';
+        if (state === 'l1') state = 'l2';
+        else state = 'num';
       }
     }
 
@@ -102,18 +92,13 @@ const App = () => {
     if (!pos1 || !pos2) return { result: c1 + c2, rule: 'Character not in grid' };
     let newPos1 = { ...pos1 }, newPos2 = { ...pos2 }, rule = '';
 
-    // Encryption rules (as specified):
-    // Same row: shift both 2 positions LEFT (encrypt) -> so -2 cols when encrypt
-    // Same column: shift both 2 positions UP (encrypt) -> so -2 rows when encrypt
-    // Rectangle: swap columns
-
+    // Encryption rules
     if (pos1.row === pos2.row) {
       if (isEncrypt) {
         newPos1.col = (pos1.col - 2 + 6) % 6;
         newPos2.col = (pos2.col - 2 + 6) % 6;
         rule = 'Same row: shift left by 2 (encrypt)';
       } else {
-        // Decrypt: shift RIGHT by 2
         newPos1.col = (pos1.col + 2) % 6;
         newPos2.col = (pos2.col + 2) % 6;
         rule = 'Same row: shift right by 2 (decrypt)';
@@ -129,7 +114,6 @@ const App = () => {
         rule = 'Same column: shift down by 2 (decrypt)';
       }
     } else {
-      // Rectangle
       newPos1.col = pos2.col;
       newPos2.col = pos1.col;
       rule = 'Rectangle: swap columns';
@@ -206,7 +190,7 @@ const App = () => {
           <div className="card-body">
             <h5 className="card-title">How It Works</h5>
             <p className="card-text">
-              1. Create a 6x6 grid containing the letters A-Z and digits 0-9. Start by filling the grid with the secret key (unique letters only), then fill remaining characters using the 1-number → 2-letters alternating pattern.<br />
+              1. Create a 6x6 grid containing the letters A-Z and digits 0-9. Start by filling the grid with the secret key (unique letters and digits), then fill remaining characters using the 1-number → 2-letters alternating pattern.<br />
               2. Divide the plaintext into digrams (pairs of characters). If two characters are identical, insert an 'X' between them; if odd-length, append 'X'.<br />
               3. Apply encryption/decryption rules:
               <ul>
