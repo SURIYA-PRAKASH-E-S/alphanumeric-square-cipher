@@ -21,9 +21,7 @@ A web-based interactive tool to **encrypt and decrypt messages** using the **6x6
    - Create a 6x6 grid with letters A-Z and digits 0-9.
    - Start with unique characters from the secret key (row-wise).
    - Then insert numbers (0–9) and alphabets in the pattern:
-   ```
-   digit → two alphabets → digit → two alphabets → ...
-   ```
+     **digit → two alphabets → digit → two alphabets → ...**
    - Skip duplicates.
    - Continue until the 6×6 grid (36 slots) is filled.
 
@@ -57,13 +55,15 @@ cd alphanumeric-square-cipher
 ```
 
 2. **Install packages**
+   
 ```bash
 npm install
 ```
 
 3. **Run**
-   ```bash
-   npm start
-   ```
    
+```bash
+ npm start
+```
+
 ---
