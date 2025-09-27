@@ -41,7 +41,7 @@ A web-based interactive tool to **encrypt and decrypt messages** using the **6x6
 
 ## Demo
 
-- [[Live Demo Link](https://cryptal.netlify.app/)](#)
+- [[Live Demo Link](https://cryptal.netlify.app/)]
 
 ---
 
